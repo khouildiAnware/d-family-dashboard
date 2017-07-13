@@ -1,0 +1,13 @@
+<div><button class="btn btn-default category-selector-btn">
+    <div ng-if="selectedCategory.icon" kr-square-image="{{selectedCategory.icon}}" ng-if="selectedCategory" small-icon style="width:18px;height:18px"></div>
+    {{selectedCategory.name ? (selectedCategory.name | language:language) : "اختر تصنيفا"}} <i class="fa fa-angle-down"></i></button>
+    <div class="webui-popover-content">
+        <ul class="dropdown-menu">
+            <li ng-repeat="category in categories">
+                <a href="javascript:void(0);" ng-click="selectCategory(category)">
+                    <div ng-if="category.icon" kr-square-image="{{category.icon}}" small-icon style="width:24px;height:24px"></div>
+                    {{category.name | language:language}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

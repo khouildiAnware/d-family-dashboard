@@ -1,0 +1,15 @@
+<div class="dataTables_paginate paging_simple_numbers" ng-show="totalPages > 1">
+    <ul class="pagination">
+        <li class="paginate_button previous" ng-class="{'disabled':page === 1}">
+            <a href="javascript:void(0)" aria-label="Previous" ng-click="prev()">
+                <span aria-hidden="true">«</span>
+            </a>
+        </li>
+        <li class="paginate_button" ng-repeat="pageNumber in pageNumbers" ng-class="{'active':pageNumber === page}"><a href="javascript:void(0)" ng-click="goTo(pageNumber)">{{pageNumber}}</a></li>
+        <li class="paginate_button next" ng-class="{'disabled':page === totalPages}">
+            <a href="javascript:void(0)" aria-label="Next" ng-click="next()">
+                <span aria-hidden="true">»</span>
+            </a>
+        </li>
+    </ul>
+</div>

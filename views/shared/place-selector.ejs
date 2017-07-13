@@ -1,0 +1,15 @@
+<div><button class="btn btn-default place-selector-btn"><div style="width:18px;height:18px;" kr-square-image="{{selectedPlace.images[0] | pictureSize:'s'}}" ng-show="selectedPlace"></div> {{selectedPlace ? (selectedPlace.name | language:language) : "اختر مكانا"}} <i class="fa fa-angle-down"></i></button>
+    <div class="webui-popover-content">
+        <input type="text" class="form-control input-sm" placeholder="ابحث..." ng-model="keywords" ng-model-options="{debounce:500}" />
+        <ul class="dropdown-menu">
+            <li class="selected-item" ng-show="selectedPlace && allowRemove">
+                <a href="javascript:void(0);" ng-click="selectedPlace=null"><i class="fa fa-times-circle"></i> حذف {{selectedPlace.name | language:language}}</a>
+            </li>
+            <li ng-repeat="place in places" ng-hide="selectedPlace.id === place.id">
+                <a href="javascript:void(0);" ng-click="selectPlace(place)">
+                    <div kr-square-image="{{place.images[0] | pictureSize:'s'}}" style="width:24px;height:24px"></div>
+                     {{place.name | language:language}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

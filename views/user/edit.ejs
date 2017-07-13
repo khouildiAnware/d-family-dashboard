@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo"> {{user.fullName}}</h4>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                <form>
+                    <div class="form-group">
+                        <label class="control-label">الصورة الشخصية</label>
+                        <div style="width: 80px;">
+                            <div kr-square-image="{{user.photo}}" style="width:80px; height:80px;"></div>
+                            <div style="margin-top:4px;">
+                                <button class="btn btn-xs red btn-circle" style="width: 100%;" ng-click="removeAvatar()">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">الاسم</label>
+                        <input type="text" class="form-control" ng-model="user.fullName" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">البريد الالكتروني</label>
+                        <input type="text" class="form-control" ng-model="user.email" readonly />
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="control-label ">حظر المستخدم</label>
+                        <input  type="checkbox" ng-model="user.blocked"    kr-switch data-on-text="نعم" data-off-text="لا">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-circle btn-primary" ng-click="save()" ng-disabled="saving">حفظ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

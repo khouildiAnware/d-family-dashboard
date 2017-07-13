@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html ng-app="karizma" lang="en" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <title>D-family | لوحة التحكم</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <base href="/" />
+  <!-- BEGIN GLOBAL MANDATORY STYLES -->
+  
+  <link href="/assets/template/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/template/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"
+  />
+  <link href="/assets/template/global/plugins/bootstrap/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" />
+  <!--<link href="/assets/template/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />-->
+  <link href="/assets/template/global/plugins/bootstrap-switch/css/bootstrap-switch-rtl.min.css" rel="stylesheet" type="text/css"
+  />
+  <!-- END GLOBAL MANDATORY STYLES -->
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+  <link href="/assets/plugins/datepicker/datepicker.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+  
+  <!-- END PAGE LEVEL PLUGINS -->
+  <!-- BEGIN THEME GLOBAL STYLES -->
+  <link href="/assets/template/global/css/components-rounded-rtl.min.css" rel="stylesheet" id="style_components" type="text/css"
+  />
+  <link href="/assets/template/global/css/plugins-rtl.min.css" rel="stylesheet" type="text/css" />
+  <!-- END THEME GLOBAL STYLES -->
+
+  <link href="/assets/plugins/webui-popover/jquery.webui-popover.min.css" rel="stylesheet" type="text/css"
+  <link href="/assets/plugins/webui-popover/jquery.webui-popover.min.css" rel="stylesheet" type="text/css"
+  
+  <!-- BEGIN THEME LAYOUT STYLES -->
+  <link href="/assets/template/layouts/layout/css/layout-rtl.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/template/layouts/layout/css/themes/light2.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/template/pages/css/login-2.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/summernote/summernote.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white" style="display: none">
+  <!-- BEGIN HEADER -->
+  <div class="page-header navbar navbar-fixed-top" ng-show="isAuthenticated" ng-cloak>
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+      <!-- BEGIN LOGO -->
+      <div class="page-logo">
+        <a href="/">
+          <img src="/assets/images/logo_horizontal.png" alt="logo" class="logo-default" style="margin:0;margin-top:5px" /> </a>
+        <div class="menu-toggler sidebar-toggler"> </div>
+      </div>
+      <!-- END LOGO -->
+      <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+      <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+      <!-- END RESPONSIVE MENU TOGGLER -->
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="top-menu" ng-controller="LoginController">
+        <ul class="nav navbar-nav pull-right">
+          <!-- BEGIN USER LOGIN DROPDOWN -->
+          <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+          <li class="dropdown dropdown-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <img alt="" class="img-circle" src="/assets/template/layouts/layout/img/avatar.png" />
+              <span class="username username-hide-on-mobile"> {{currentUser.get('name')}} </span>
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+              <li>
+                <a href="javascript:void(0)" ng-click="logout()">
+                  <i class="icon-key"></i> تسجيل خروج </a>
+              </li>
+            </ul>
+          </li>
+          <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+  </div>
+  <!-- END HEADER -->
+  <!-- BEGIN HEADER & CONTENT DIVIDER -->
+  <div class="clearfix"> </div>
+  <!-- END HEADER & CONTENT DIVIDER -->
+  <!-- BEGIN CONTAINER -->
+  <div class="page-container">
+    <%- include('menu') %>
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+      <!-- BEGIN CONTENT BODY -->
+      <div class="page-content">
+
+     

@@ -1,0 +1,52 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo"> الأماكن</h4>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}" />
+                <hr/>
+                <div class="table-responsive">
+                    <table class="table table-advance">
+                        <thead>
+                            <tr>
+                                <th style="width:50px"> </th>
+                                <th> الاسم </th>
+                                <th> البريد الالكتروني </th>
+                                <th> تاريخ التسجيل </th>
+                                <th> عدد النقاط </th>
+                                <th style="width:200px"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in users" id="user-{{user.id}}">
+                                <td>
+                                    <div kr-square-image="{{user.photo}}" style="width:40px;height:40px;"></div>
+                                </td>
+                                <td> {{user.fullName }} </td>
+                                <td>
+                                    {{user.email}}
+                                </td>
+                                <td>
+                                    {{user.createdAt | moment:'fromNow'}}
+                                </td>
+                                <td>
+                                    {{user.points}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-circle red" delete-btn="user" container-id="#user-{{user.id}}"><i class="fa fa-times"></i> حذف</button>
+                                    <a class="btn btn-sm btn-circle btn-default" href="users/{{user.id}}"><i class="fa fa-pencil"></i> تعديل</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <kr-pager page="filters.page" page-size="filters.pageSize"></kr-pager>
+            </div>
+        </div>
+
+    </div>
+</div>

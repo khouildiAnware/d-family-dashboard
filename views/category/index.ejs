@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo"> الأقسام</h4>
+                </div>
+                <div class="actions">
+                    <button ng-click="selectCategory()" data-toggle="modal" data-target="#category-modal" class="btn btn-sm btn-circle blue"><i class="fa fa-plus"></i> إضافة</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                <div class="alert alert-info">
+                    <i class="fa fa-lightbulb-o"></i> قم بسحب التصنيفات لتغيير الترتيب
+                </div>
+                <div class="row" ui-sortable ng-model="categories" ui-sortable-stop="sortStop()">
+                    <div class="col-md-4 col-xs-2" ng-repeat="category in categories">
+                        <div class="category-widget">
+                            <div class="category-widget-head" style="background-image: url({{category.backgroundImage | pictureSize:'f'}});">
+                                <div class="category-button">
+                                    <button type="button" data-toggle="modal" data-target="#category-modal" ng-click="selectCategory(category)" class="btn btn-circle btn-default">تعديل</button>
+                                    <button type="button" ng-click="toggle(category, true)" class="btn btn-circle red btn-sm" ng-hide="category.isHidden || category.systemCategory"><i class="fa fa-eye-slash"></i> إخفاء</button>
+                                    <button type="button" ng-click="toggle(category, false)" class="btn btn-circle green btn-sm" ng-show="category.isHidden"><i class="fa fa-eye"></i> عرض</button>
+                                </div>
+                                <div class="category-icon">
+                                    <div class="mt-head-user-img">
+                                        <img ng-src="{{category.icon}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="category-widget-body">
+                                <h3 class="category-title"> {{category.name.arabicLabel}} </h3>
+                                <span class="places-count font-red">{{category.nbPlaces || 0}} <i class="fa fa-map-marker"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="category-modal" data-backdrop="static" block-ui="modalUI" kr-modal="categoryModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()" style="margin-top:10px !important;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title inline-block">{{selectedCategory.name | language:selectedLanguage}}</h4>
+                    <div class="pull-right" style="margin-left:10px;">
+                        <bhg-language-selector></bhg-language-selector>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" ng-show="errors.length">
+                        <ul class="validation-errors">
+                            <li ng-repeat="error in errors">{{error.message}}</li>
+                        </ul>
+                    </div>
+                    <form action="">
+                        <div class="form-group">
+                            <label class="control-label">الاسم</label>
+                            <bhg-input model="selectedCategory.name" selected-language="selectedLanguage"></bhg-input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">صورة الخلفية</label>
+                            <kr-file-upload name="backgroundUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline"
+                                    class-name="Picture" field-name="full" file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)"
+                                    fail="uploadFail()"></kr-file-upload>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">إلغاء</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">حفظ التغييرات</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>

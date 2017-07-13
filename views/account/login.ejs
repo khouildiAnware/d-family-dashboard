@@ -1,0 +1,21 @@
+<div class="logo">
+        <img src="/assets/images/logo.png" style="height: 200px;" alt="">
+</div>
+<div class="content" block-ui="ui">
+    <!-- BEGIN LOGIN FORM -->
+    <form class="login-form" method="post" ng-submit="login()">
+        <div class="alert alert-danger" ng-show="error">
+            <span> اسم المستخدم أو كلمة المرور خاطئة </span>
+        </div>
+        <div class="form-group">
+            <input class="form-control input-lg" ng-model="loginDetails.username" type="text" autocomplete="off" placeholder="اسم المستخدم" name="username" required />
+        </div>
+        <div class="form-group">
+            <input class="form-control input-lg" ng-model="loginDetails.password" type="password" autocomplete="off" placeholder="كلمة المرور" required/>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn red btn-block">دخول</button>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+</div>

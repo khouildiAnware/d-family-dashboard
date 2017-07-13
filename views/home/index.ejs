@@ -1,0 +1,256 @@
+﻿<!-- BEGIN PAGE TITLE-->
+<div class="range-buttons">
+    <button ng-repeat="(rangeLabel, range) in ranges" ng-class="{'btn-info':rangeLabel === selectedRange, 'btn-secondary': rangeLabel !== selectedRange}"
+        ng-click="selectRange(rangeLabel, range)" type="button" class="btn btn-min-width btn-default btn-circle btn-outline">{{rangeLabel}}</button>
+
+    <button ng-class="{'btn-info':selectedRange === 'مخصص', 'btn-secondary': 'مخصص' !== selectedRange}" ng-click="selectRange('مخصص')"
+        date-range-picker on-range-changed="dateRangeChanged(startDate, endDate)" type="button" class="btn btn-min-width btn-default btn-circle btn-outline"><i class="fa fa-calendar" style="vertical-align: middle;"></i> مخصص</button>
+
+    <h4 class="range-label"><b>من</b> <span>{{startDate | moment:'format':'dddd D MMMM YYYY'}}</span> <b>إلى</b> <span>{{endDate | moment:'format':'dddd D MMMM YYYY'}}</span></h4>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue">
+            <div class="visual">
+                <i class="fa fa-users"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="1349">{{usersCount === undefined ? '...':usersCount}}</span>
+                </div>
+                <div class="desc"> مستخدم </div>
+            </div>
+            <a class="more" href="/users"> تفاصيل
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="12,5">{{categoriesSearchCount}}</span></div>
+                <div class="desc"> عملية بحث </div>
+            </div>
+            <a class="more" target="_self" href="#search-stats"> تفاصيل
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green">
+            <div class="visual">
+                <i class="fa fa-arrow-down"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="549">{{installationsCount === undefined ? '...':installationsCount}}</span>
+                </div>
+                <div class="desc"> عملية تنزيل </div>
+            </div>
+            <a class="more" target="_self" href="#installation-stats"> تفاصيل
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple">
+            <div class="visual">
+                <i class="fa fa-bullhorn"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="89">{{adsCount === undefined ? '...' : adsCount}}</span></div>
+                <div class="desc"> اعلان </div>
+            </div>
+            <a class="more" href="/ads"> View more
+                <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="portlet light bordered" block-ui="installationUI" id="installation-stats">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">
+                        إحصائيات التنزيل
+                    </h4>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-sm" ng-class="{'btn-primary':installationGroupBy === 'days', 'btn-outline btn-default':installationGroupBy !== 'days'}"
+                        ng-click="changeInstallationFilter('days')">بالأيام</button>
+                    <button class="btn btn-sm" ng-class="{'btn-primary':installationGroupBy === 'months', 'btn-outline btn-default':installationGroupBy !== 'months'}"
+                        ng-click="changeInstallationFilter('months')">بالشهور</button>
+                    <button class="btn btn-sm" ng-class="{'btn-primary':installationGroupBy === 'years', 'btn-outline btn-default':installationGroupBy !== 'years'}"
+                        ng-click="changeInstallationFilter('years')">بالسنوات</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="panel">
+                <div id="installation_statistics" class="chart"> </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-blue-sharp">
+                                        <span data-counter="counterup">{{installationsCount === undefined ? '...':installationsCount}}</span>
+                                    </h3>
+                                    <small>عملية تنزيل</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="icon-screen-smartphone"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-blue-sharp">
+                                        <span data-counter="counterup">{{iosInstallationsCount === undefined ? '...':iosInstallationsCount}}</span>
+                                    </h3>
+                                    <small>iOS</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-apple"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-blue-sharp">
+                                        <span data-counter="counterup">{{androidInstallationsCount === undefined ? '...':androidInstallationsCount}}</span>
+                                    </h3>
+                                    <small>Android</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-android"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portlet light bordered" block-ui="usersUI">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">
+                        إحصائيات المستخدمين
+                    </h4>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-sm" ng-class="{'btn-primary':usersGroupBy === 'days', 'btn-outline btn-default':usersGroupBy !== 'days'}"
+                        ng-click="changeUsersFilter('days')">بالأيام</button>
+                    <button class="btn btn-sm" ng-class="{'btn-primary':usersGroupBy === 'months', 'btn-outline btn-default':usersGroupBy !== 'months'}"
+                        ng-click="changeUsersFilter('months')">بالشهور</button>
+                    <button class="btn btn-sm" ng-class="{'btn-primary':usersGroupBy === 'years', 'btn-outline btn-default':usersGroupBy !== 'years'}"
+                        ng-click="changeUsersFilter('years')">بالسنوات</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="panel">
+                <div id="users_statistics" class="chart"> </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-blue-sharp">
+                                        <span data-counter="counterup">{{usersCount === undefined ? '...':usersCount}}</span>
+                                    </h3>
+                                    <small>عملية تسجيل</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="icon-user-follow"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="portlet light bordered" id="search-stats">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">
+                        إحصائيات تصفح التصنيفات
+                    </h4>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="categoriesSearchUI">
+                <div id="categories_search_statistics" class="chart categories-chart"> </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="dashboard-stat2 ">
+                            <div class="display">
+                                <div class="number">
+                                    <h3 class="font-blue-sharp">
+                                        <span data-counter="counterup">{{categoriesSearchCount}}</span>
+                                    </h3>
+                                    <small>عملية بحث</small>
+                                </div>
+                                <div class="icon">
+                                    <i class="icon-magnifier"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portlet light bordered" id="search-stats">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">
+                        الأماكن الأكثر زيارة
+                    </h4>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="top10UI">
+                <div class="mt-comments">
+                    <div class="mt-comment" ng-repeat="item in topPlaces">
+                        <div class="mt-comment-img">
+                            <div kr-square-image="{{item.place.images[0] | pictureSize:'s'}}" style="width:40px;height:40px;"></div>
+                        </div>
+                        <div class="mt-comment-body">
+                            <div class="mt-comment-info">
+                                <span class="mt-comment-author">{{item.place.name.arabicLabel}}</span>
+                                <span class="mt-comment-date">{{item.place.category.name.arabicLabel}}</span>
+                            </div>
+                            <div class="mt-comment-details">
+                                <span class="mt-comment-status mt-comment-status-pending">{{item.count}} عملية بحث</span>
+                                <ul class="mt-comment-actions">
+                                    <li>
+                                        <a href="/places/{{item.place.id}}">تفصايل</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->

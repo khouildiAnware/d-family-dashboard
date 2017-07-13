@@ -1,0 +1,11 @@
+<div><button class="btn btn-default category-selector-btn">
+    {{getLabel()}} <i class="fa fa-angle-down"></i></button>
+    <div class="webui-popover-content">
+        <ul class="dropdown-menu">
+            <li ng-repeat="obj in objects">
+                <a href="javascript:void(0);" ng-click="selectObject(obj)">
+                    {{getLabel(obj)}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

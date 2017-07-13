@@ -1,0 +1,20 @@
+<!-- Multiple -->
+<div ng-show="display==='inline'" class="upload-inline" ng-class="{'multiple': multiple}" style="margin-top:8px">
+    <div ng-repeat="item in queue">
+        <i class="fa fa-times-circle" ng-click="removeItem(item, $index)"></i>
+        <div class="circle-progress-bar" progress="item.progress" ng-show="item.state === 'uploading'"></div>
+        <div kr-square-image="{{item.thumbnail}}" ng-class="{idle:item.state === 'idle' || item.state === 'uploading'}" style="width:80px;height:80px">
+        </div>
+
+
+        <div class="fileUpload btn btn-xs btn-circle btn-outline btn-default" ng-disabled="uploading" ng-hide="multiple">
+            <span class="fa fa-reload"></span> تغيير
+            <input type="file" class="upload" style="margin-top:5px;" kr-multiple="multiple" />
+        </div>
+    </div>
+
+    <div class="fileUpload" ng-disabled="uploading" ng-hide="!multiple && queue.length" style="width:80px;height:80px;">
+        <span class="fa fa-plus"></span>
+        <input type="file" class="upload" style="margin-top:5px;" kr-multiple="multiple" />
+    </div>
+</div>
