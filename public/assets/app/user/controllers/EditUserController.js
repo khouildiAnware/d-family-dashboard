@@ -1,3 +1,4 @@
+
 angular
     .module('karizma.user')
     .controller('EditUserController', [
