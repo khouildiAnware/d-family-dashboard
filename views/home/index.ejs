@@ -1,5 +1,7 @@
-﻿<!-- BEGIN PAGE TITLE-->
+<!-- BEGIN PAGE TITLE-->
 <div class="range-buttons">
+    
+    
     <button ng-repeat="(rangeLabel, range) in ranges" ng-class="{'btn-info':rangeLabel === selectedRange, 'btn-secondary': rangeLabel !== selectedRange}"
         ng-click="selectRange(rangeLabel, range)" type="button" class="btn btn-min-width btn-default btn-circle btn-outline">{{rangeLabel}}</button>
 
