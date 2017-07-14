@@ -17,7 +17,7 @@
                                 <th> الاسم </th>
                                 <th> البريد الالكتروني </th>
                                 <th> تاريخ التسجيل </th>
-                                <th> عدد النقاط </th>
+                                <th> الحالة  </th>
                                 <th style="width:200px"> </th>
                             </tr>
                         </thead>
@@ -34,7 +34,7 @@
                                     {{user.createdAt | moment:'fromNow'}}
                                 </td>
                                 <td>
-                                    {{user.points}}
+                                    {{user.blocked?'حظر':'مستخدم'}}
                                 </td>
                                 <td>
                                     <button class="btn btn-sm btn-circle red" delete-btn="user" container-id="#user-{{user.id}}"><i class="fa fa-times"></i> حذف</button>

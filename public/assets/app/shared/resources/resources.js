@@ -118,7 +118,82 @@
                 "delete": {},
                 "addField": {}
             }
+        }, {
+        "className": "News",
+        "fields": {
+            "objectId": {
+                "type": "String"
+            },
+            "createdAt": {
+                "type": "Date"
+            },
+            "updatedAt": {
+                "type": "Date"
+            },
+            "ACL": {
+                "type": "ACL"
+            },
+            "title": {
+                "type": "Pointer",
+                "targetClass": "Language"
+            },
+            "content": {
+                "type": "Pointer",
+                "targetClass": "Language"
+            },
+            "thumbnail": {
+                "type": "String"
+            }
+        },
+        "classLevelPermissions": {
+            "find": {
+                "*": true
+            },
+            "get": {
+                "*": true
+            },
+            "create": {},
+            "update": {},
+            "delete": {},
+            "addField": {}
         }
+    }, {
+        "className": "Language",
+        "fields": {
+            "objectId": {
+                "type": "String"
+            },
+            "createdAt": {
+                "type": "Date"
+            },
+            "updatedAt": {
+                "type": "Date"
+            },
+            "ACL": {
+                "type": "ACL"
+            },
+            "arabicLabel": {
+                "type": "String"
+            },
+            "englishLabel": {
+                "type": "String"
+            }
+        },
+        "classLevelPermissions": {
+            "find": {
+                "*": true
+            },
+            "get": {
+                "*": true
+            },
+            "create": {},
+            "update": {},
+            "delete": {},
+            "addField": {
+                "*": true
+            }
+        }
+    }
     ];
 
     function extendParseQuery($q, $timeout) {

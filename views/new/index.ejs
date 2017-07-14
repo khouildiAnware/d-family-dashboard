@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo"> الاخبار</h4>
+                </div>
+                <div class="actions">
+                    <button ng-click="selectItem()" data-toggle="modal" data-target="#new-modal" class="btn btn-sm btn-circle blue"><i class="fa fa-plus"></i> إضافة</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                 <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}" />
+                <hr/>
+                <div class="row">
+                    <div class="col-md-4 col-xs-6" ng-repeat="item in news" id="coverage-{{item.id}}">
+                        <div class="category-widget" style="min-height:540px">
+                            <div class="category-widget-head" >
+                                <img style="width:100%;height:100%" src="{{item.thumbnail || '/assets/images/newspost.jpg'}}"/>
+                            </div>
+                            <div class="category-widget-body">
+                                <div class="event-buttons">
+                                    <button type="button" data-toggle="modal" data-target="#new-modal" ng-click="selectItem(item)" class="btn btn-circle btn-default btn-sm">تعديل</button>
+                                    <button type="button" delete-btn="item" container-id="#coverage-{{item.id}}" class="btn btn-circle red btn-sm"><i class="fa fa-times"></i> حذف</button>
+                                </div>
+                                <h4 class="event-title"> {{item.title.arabicLabel}} </h4>
+
+                                <div class="event-date">
+                                    <i class="fa fa-calendar font-green"></i> <span>{{item.createdAt | moment:'format':'dddd D MMMM YYYY'}}</span>
+                                </div>
+                                <div>{{item.content.arabicLabel | limitTo:400}}<span ng-show="item.content.arabicLabel.length > 400">...</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="new-modal" data-backdrop="static" block-ui="modalUI" kr-modal="newModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()" style="margin-top:10px !important;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title inline-block">{{selectedItem.name | language:selectedLanguage}}</h4>
+                    <div class="pull-right" style="margin-left:10px;">
+                        <bhg-language-selector></bhg-language-selector>
+                    </div>
+                </div>
+                <div class="modal-body">
+                     <div class="alert alert-danger" ng-show="errors.length">
+                        <ul class="validation-errors">
+                            <li ng-repeat="error in errors">{{error.message}}</li>
+                        </ul>
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label translateable">العنوان</label>
+                                    <bhg-input model="selectedItem.title" selected-language="selectedLanguage"></bhg-input>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label translateable">التفاصيل</label>
+                                    <bhg-textarea model="selectedItem.content" selected-language="selectedLanguage"></bhg-textarea>
+                                </div>
+                               
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">الصورة</label>
+                                    <kr-file-upload name="imageUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline"
+                                     field-name="full" file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)"
+                                    fail="uploadFail()"></kr-file-upload>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">إلغاء</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">حفظ التغييرات</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
