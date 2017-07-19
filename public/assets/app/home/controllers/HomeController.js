@@ -1,6 +1,6 @@
 angular.module('karizma.home')
-    .controller('HomeController', ['$scope', '$http', '$timeout', 'User', 'Installation', 'PlaceAdvertise',
-        function ($scope, $http, $timeout, User, Installation, PlaceAdvertise) {
+    .controller('HomeController', ['$scope', '$http', '$timeout', 'User', 'Installation',
+        function ($scope, $http, $timeout, User, Installation) {
             var currentYear = new Date().getFullYear();
             $scope.filters = {
                 year: currentYear
@@ -206,7 +206,7 @@ angular.module('karizma.home')
                 });
             };
 
-            var refreshTop10Places = function () {
+           /* var refreshTop10Places = function () {
                 $scope.top10UI.block();
 
                 Parse.Cloud.run('GetMostVisitedPlaces', {
@@ -219,7 +219,7 @@ angular.module('karizma.home')
                         $scope.topPlaces = result;
                     });
                 });
-            };
+            };*/
 
             var refresh = function () {
                 var userCountQuery = new User.Query();
@@ -230,7 +230,7 @@ angular.module('karizma.home')
                     });
                 });
 
-                var adsCountQuery = new PlaceAdvertise.Query();
+                /*var adsCountQuery = new PlaceAdvertise.Query();
                 addFilters(adsCountQuery);
 
                 adsCountQuery.count({
@@ -239,7 +239,7 @@ angular.module('karizma.home')
                     $timeout(function () {
                         $scope.adsCount = totalAds;
                     });
-                });
+                });*/
 
                 refreshInstallationsChart();
                 refreshUsersChart();

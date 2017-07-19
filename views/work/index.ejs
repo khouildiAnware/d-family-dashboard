@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo"> الاعمال</h4>
+                </div>
+                <div class="actions">
+                    <button ng-click="selectItem()" data-toggle="modal" data-target="#work-modal" class="btn btn-sm btn-circle blue"><i class="fa fa-plus"></i> إضافة</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}"
+                />
+                <hr/>
+                <div class="row">
+                    <div class="col-md-4 col-xs-6" ng-repeat="item in works">
+                        <div class="category-widget" style="min-height:470px">
+                            <div class="category-widget-head">
+                                <section class="video">
+                                    <video poster="{{item.thumbnail}}" controls>
+                                        <source src='{{item.video}}' type="video/mp4">
+                                    </video>
+
+                                </section>
+                            </div>
+                            <div class="category-widget-body">
+                                <div style="min-height: 130px;">
+                                    <h4 class="event-title" style="white-space: normal;"> {{item.title.arabicLabel}} </h4>
+
+                                    <div class="event-date">
+                                        <i class="fa fa-calendar font-green"></i> <span>{{item.createdAt | moment:'format':'dddd D MMMM YYYY'}}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="event-buttons">
+
+                                    </div>
+                                    <div class="category-title row">
+                                        <div class="col-xs-4" style="padding-right: 0px;">
+                                            <i class="fa fa-star {{item.rate > 0 ?'text-warning':''}} "></i><i class="fa fa-star {{item.rate > 1 ?'text-warning':''}}"></i>
+                                            <i class="fa fa-star {{item.rate > 2 ?'text-warning':''}}"></i><i class="fa fa-star {{item.rate > 3 ?'text-warning':''}}"></i>
+                                            <i class="fa fa-star {{item.rate > 4 ?'text-warning':''}}"></i>&nbsp;&nbsp;
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <i class="fa fa-heart text-danger" aria-hidden="true">{{item.likes ? item.likes.length:0}}</i>&nbsp;&nbsp;
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <a data-toggle="modal" data-target="#comment-modal" ng-click="selectItem(item,true)"><i class="fa fa-commenting  " aria-hidden="true">{{item.nbrComments || 0}}</i></a>                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                        <div class="col-xs-4" style="padding-left: 0px;">
+                                            <button type="button" data-toggle="modal" data-target="#work-modal" ng-click="selectItem(item)" class="btn btn-circle btn-default btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button type="button" ng-click="delete(item)" class="btn btn-circle red btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="work-modal" data-backdrop="static" block-ui="modalUI" kr-modal="newModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()" style="margin-top:10px !important;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title inline-block">{{selectedItem.name | language:selectedLanguage}}</h4>
+                    <div class="pull-right" style="margin-left:10px;">
+                        <bhg-language-selector></bhg-language-selector>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" ng-show="errors.length">
+                        <ul class="validation-errors">
+                            <li ng-repeat="error in errors">{{error.message}}</li>
+                        </ul>
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label translateable">العنوان</label>
+                                    <bhg-input model="selectedItem.title" selected-language="selectedLanguage"></bhg-input>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="control-label">الصورة</label>
+                                    <kr-file-upload name="imageUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline" field-name="full"
+                                        file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)"
+                                        fail="uploadFail()"></kr-file-upload>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">الفيديو</label>
+                                     <kr-file-upload name="videoUploader" queue="videoQueue" allowed-extensions="mp4" display="inline" type="video" file-uploaded="videoUploaded(fileInfo, object)"
+                                    file-removed="videoRemoved(fileInfo, index)" fail="uploadFail()"></kr-file-upload>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">إلغاء</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">حفظ التغييرات</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="comment-modal" kr-modal="newModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()" style="margin-top:10px !important;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title inline-block">{{selectedItem.title | language:selectedLanguage}}</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="portlet-body">
+                        <div class="timeline">
+                            <!-- TIMELINE ITEM -->
+                            <div class="timeline-item" ng-repeat="item in comments">
+                                <div class="timeline-badge">
+                                    <div ng-show="item.user.photo">
+
+                                        <img class="timeline-badge-userpic" src="{{item.user.photo}}" />
+                                    </div>
+                                    <div ng-show="!item.user.photo" class="timeline-icon">
+                                        <i class="icon-user-following font-green-haze"></i>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <div class="timeline-body-arrow"> </div>
+                                    <div class="timeline-body-head">
+                                        <div class="timeline-body-head-caption">
+                                            <span class="timeline-body-alerttitle font-red-intense">{{item.user.fullName}}</span>
+                                            <span class="timeline-body-time font-grey-cascade"><i class="fa fa-calendar font-green"></i> <span>{{item.createdAt | moment:'format':'dddd D MMMM YYYY'}}</span></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="timeline-body-content">
+                                        <span class="font-grey-cascade"> {{item.comment}}
+                                                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END TIMELINE ITEM -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>

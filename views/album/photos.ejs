@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">  الصور</h4>
+                </div>
+                <div class="actions">
+                    <button ng-click="selectItem()" data-toggle="modal" data-target="#album-modal" class="btn btn-sm btn-circle blue"><i class="fa fa-plus"></i> إضافة</button>
+                </div>
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                
+                <div class="row" ui-sortable ng-model="items" ui-sortable-stop="sortStop()">
+                    <div class="col-md-4 col-xs-2" ng-repeat="item in albumPhotos">
+                        <div class="category-widget">
+                            <div class="category-widget-head">
+                                 <img style="width:100%;height:100%" src="{{item.thumbnail }}"/>
+                                <div class="category-button">
+                                    <button type="button" data-toggle="modal" data-target="#album-modal" ng-click="selectItem(item)" class="btn btn-circle btn-default">تعديل</button>
+                                    <button class="btn btn-sm btn-circle red" ng-click="delete(item)" ><i class="fa fa-times"></i> حذف</button>
+                                   
+                                </div>
+                                <div class="category-icon">
+                                    <div class="mt-head-user-img">
+                                        <img ng-src="{{category.icon}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="category-widget-body">
+                                <h3 class="category-title"> {{item.name.arabicLabel}} </h3>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="album-modal" data-backdrop="static" block-ui="modalUI" kr-modal="categoryModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()" style="margin-top:10px !important;"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title inline-block">{{selectedItem.name | language:selectedLanguage}}</h4>
+                    <div class="pull-right" style="margin-left:10px;">
+                        <bhg-language-selector></bhg-language-selector>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" ng-show="errors.length">
+                        <ul class="validation-errors">
+                            <li ng-repeat="error in errors">{{error.message}}</li>
+                        </ul>
+                    </div>
+                    <form action="">
+                        <div class="form-group">
+                            <label class="control-label">الاسم</label>
+                            <bhg-input model="selectedItem.name" selected-language="selectedLanguage"></bhg-input>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">صورة الخلفية</label>
+                            <kr-file-upload name="backgroundUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline"
+                                     field-name="full" file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)"
+                                    fail="uploadFail()"></kr-file-upload>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">إلغاء</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">حفظ التغييرات</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>

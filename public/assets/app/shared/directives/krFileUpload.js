@@ -35,6 +35,7 @@ angular.module('karizma.shared')
                 scope.multiple = 'multiple' in attr;
                 scope.display = attr.display || 'table';
                 scope.dnd = 'dnd' in attr;
+                scope.type = attr.type || 'image';
 
                 if ('simultaneous' in attr) {
                     simultaneous = parseInt(attr.simultaneous, 10);
@@ -184,7 +185,9 @@ angular.module('karizma.shared')
                 };
 
                 var doUploadFile = function (fileInfo) {
+                   
                     $timeout(function () {
+                        fileInfo.state = 'startUploaded';
 
                         var parseFile = new Parse.File(fileInfo.file.name, fileInfo.file);
 
@@ -229,79 +232,80 @@ angular.module('karizma.shared')
                                 });
                             }
                         });
+                        /*
+                         var formData = new FormData();
+                         formData.append(paramName, fileInfo.file);
+                         if (uploadParams.className) {
+                             formData.append('className', uploadParams.className);
+                         }
 
-                        // var formData = new FormData();
-                        // formData.append(paramName, fileInfo.file);
-                        // if (uploadParams.className) {
-                        //     formData.append('className', uploadParams.className);
-                        // }
+                         if (uploadParams.fieldName) {
+                             formData.append('fieldName', uploadParams.fieldName);
+                         }
 
-                        // if (uploadParams.fieldName) {
-                        //     formData.append('fieldName', uploadParams.fieldName);
-                        // }
+                         $.ajax({
+                             url: uploadUrl,
+                             data: formData,
+                             type: 'POST',
+                             contentType: false,
+                             processData: false,
+                             xhr: function () {
+                                 var xhr = $.ajaxSettings.xhr();
+                                 if (xhr.upload) {
+                                     xhr.upload.addEventListener('progress', function (event) {
+                                         var percent = 0;
+                                         var position = event.loaded || event.position; 
+                                         var total = event.total;
+                                         if (event.lengthComputable) {
+                                             percent = Math.ceil(position / total * 100);
+                                         }
+                                         $($timeout(function () {
+                                             fileInfo.progress = percent;
+                                             scope.uploadProgress && scope.uploadProgress({
+                                                 fileInfo: fileInfo
+                                             });
+                                         }));
+                                     }, false);
+                                 }
+                                 return xhr;
+                             },
+                             success: function (res) {
+                                 $timeout(function () {
+                                     fileInfo.state = 'uploaded';
+                                     fileInfo.url = res.url;
+                                     scope.fileUploaded && scope.fileUploaded({
+                                         fileInfo: fileInfo,
+                                         object: res.object
+                                     });
+                                     if (_.every(scope.queue, {
+                                             state: 'uploaded'
+                                         })) {
+                                         scope.done && scope.done();
+                                         globalUploadDeferred.resolve();
+                                         globalUploadDeferred = null;
+                                     } else if (_.every(scope.queue, function (i) {
+                                             return i.state === 'uploaded' || i.state === 'error'
+                                         })) {
+                                         scope.fail && scope.fail();
+                                         globalUploadDeferred.reject();
+                                         globalUploadDeferred = null;
+                                     } else {
+                                         uploadFiles();
+                                     }
+                                 });
+                             },
+                             error: function (res) {
+                                 $timeout(function () {
+                                     fileInfo.state = 'error';
+                                 });
 
-                        // $.ajax({
-                        //     url: uploadUrl,
-                        //     data: formData,
-                        //     type: 'POST',
-                        //     contentType: false,
-                        //     processData: false,
-                        //     xhr: function () {
-                        //         var xhr = $.ajaxSettings.xhr();
-                        //         if (xhr.upload) {
-                        //             xhr.upload.addEventListener('progress', function (event) {
-                        //                 var percent = 0;
-                        //                 var position = event.loaded || event.position; /*event.position is deprecated*/
-                        //                 var total = event.total;
-                        //                 if (event.lengthComputable) {
-                        //                     percent = Math.ceil(position / total * 100);
-                        //                 }
-                        //                 $($timeout(function () {
-                        //                     fileInfo.progress = percent;
-                        //                     scope.uploadProgress && scope.uploadProgress({
-                        //                         fileInfo: fileInfo
-                        //                     });
-                        //                 }));
-                        //             }, false);
-                        //         }
-                        //         return xhr;
-                        //     },
-                        //     success: function (res) {
-                        //         $timeout(function () {
-                        //             fileInfo.state = 'uploaded';
-                        //             fileInfo.url = res.url;
-                        //             scope.fileUploaded && scope.fileUploaded({
-                        //                 fileInfo: fileInfo,
-                        //                 object: res.object
-                        //             });
-                        //             if (_.every(scope.queue, {
-                        //                     state: 'uploaded'
-                        //                 })) {
-                        //                 scope.done && scope.done();
-                        //                 globalUploadDeferred.resolve();
-                        //                 globalUploadDeferred = null;
-                        //             } else if (_.every(scope.queue, function (i) {
-                        //                     return i.state === 'uploaded' || i.state === 'error'
-                        //                 })) {
-                        //                 scope.fail && scope.fail();
-                        //                 globalUploadDeferred.reject();
-                        //                 globalUploadDeferred = null;
-                        //             } else {
-                        //                 uploadFiles();
-                        //             }
-                        //         });
-                        //     },
-                        //     error: function (res) {
-                        //         $timeout(function () {
-                        //             fileInfo.state = 'error';
-                        //         });
-
-                        //         scope.uploadError({
-                        //             fileInfo: fileInfo,
-                        //             error: res.error
-                        //         });
-                        //     }
-                        // });
+                                 scope.uploadError({
+                                     fileInfo: fileInfo,
+                                     error: res.error
+                                 });
+                             }
+                         });
+                        */
                     });
                 };
 

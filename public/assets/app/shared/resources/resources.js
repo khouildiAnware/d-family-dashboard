@@ -65,7 +65,82 @@
                 }
             }
         }, {
-            "className": "Category",
+        "className": "_Installation",
+        "fields": {
+            "objectId": {
+                "type": "String"
+            },
+            "createdAt": {
+                "type": "Date"
+            },
+            "updatedAt": {
+                "type": "Date"
+            },
+            "ACL": {
+                "type": "ACL"
+            },
+            "installationId": {
+                "type": "String"
+            },
+            "deviceToken": {
+                "type": "String"
+            },
+            "channels": {
+                "type": "Array"
+            },
+            "deviceType": {
+                "type": "String"
+            },
+            "pushType": {
+                "type": "String"
+            },
+            "GCMSenderId": {
+                "type": "String"
+            },
+            "timeZone": {
+                "type": "String"
+            },
+            "localeIdentifier": {
+                "type": "String"
+            },
+            "badge": {
+                "type": "Number"
+            },
+            "appVersion": {
+                "type": "String"
+            },
+            "appName": {
+                "type": "String"
+            },
+            "appIdentifier": {
+                "type": "String"
+            },
+            "parseVersion": {
+                "type": "String"
+            }
+        },
+        "classLevelPermissions": {
+            "find": {
+                "*": true
+            },
+            "get": {
+                "*": true
+            },
+            "create": {
+                "*": true
+            },
+            "update": {
+                "*": true
+            },
+            "delete": {
+                "*": true
+            },
+            "addField": {
+                "*": true
+            }
+        }
+    }, {
+            "className": "Album",
             "fields": {
                 "objectId": {
                     "type": "String"
@@ -83,27 +158,50 @@
                     "type": "Pointer",
                     "targetClass": "Language"
                 },
-                "icon": {
+                "thumbnail": {
                     "type": "String"
                 },
-                "isHidden": {
-                    "type": "Boolean"
-                },
-                "sortOrder": {
+                 "nbPictures": {
                     "type": "Number"
+                }
+            },
+            "classLevelPermissions": {
+                "find": {
+                    "*": true
                 },
-                "nbPlaces": {
-                    "type": "Number"
+                "get": {
+                    "*": true
                 },
-                "backgroundImage": {
+                "create": {},
+                "update": {},
+                "delete": {},
+                "addField": {}
+            }
+        }, {
+            "className": "AlbumPhoto",
+            "fields": {
+                "objectId": {
+                    "type": "String"
+                },
+                "createdAt": {
+                    "type": "Date"
+                },
+                "updatedAt": {
+                    "type": "Date"
+                },
+                "ACL": {
+                    "type": "ACL"
+                },
+                "name": {
                     "type": "Pointer",
-                    "targetClass": "Picture"
+                    "targetClass": "Language"
                 },
-                "reference": {
+                "thumbnail": {
                     "type": "String"
                 },
-                "systemCategory": {
-                    "type": "Boolean"
+                 "album": {
+                    "type": "Pointer",
+                    "targetClass": "Album"
                 }
             },
             "classLevelPermissions": {
@@ -177,6 +275,106 @@
             },
             "englishLabel": {
                 "type": "String"
+            }
+        },
+        "classLevelPermissions": {
+            "find": {
+                "*": true
+            },
+            "get": {
+                "*": true
+            },
+            "create": {},
+            "update": {},
+            "delete": {},
+            "addField": {
+                "*": true
+            }
+        }
+    }, {
+            "className": "Work",
+            "fields": {
+                "objectId": {
+                    "type": "String"
+                },
+                "createdAt": {
+                    "type": "Date"
+                },
+                "updatedAt": {
+                    "type": "Date"
+                },
+                "ACL": {
+                    "type": "ACL"
+                },
+                "title": {
+                    "type": "Pointer",
+                    "targetClass": "Language"
+                },
+                "thumbnail": {
+                    "type": "String"
+                },
+                 "rate": {
+                    "type": "Number"
+                },
+                "user": {
+                    "type": "Pointer",
+                    "targetClass": "_User"
+                },
+                "nbrComments": {
+                    "type": "Number"
+                },
+                "rates": {
+                    "type": "Array"
+                },
+                "type": {
+                    "type": "String"
+                },
+                "video": {
+                    "type": "String"
+                },
+                "likes": {
+                    "type": "Array"
+                }
+            },
+            "classLevelPermissions": {
+                "find": {
+                    "*": true
+                },
+                "get": {
+                    "*": true
+                },
+                "create": {},
+                "update": {},
+                "delete": {},
+                "addField": {}
+            }
+        }, {
+        "className": "Comment",
+        "fields": {
+            "objectId": {
+                "type": "String"
+            },
+            "createdAt": {
+                "type": "Date"
+            },
+            "updatedAt": {
+                "type": "Date"
+            },
+            "ACL": {
+                "type": "ACL"
+            },
+            "comment": {
+                "type": "String"
+            },
+            "user": {
+                "type": "Pointer",
+                "targetClass": "_User"
+
+            },
+             "work": {
+                "type": "Pointer",
+                "targetClass": "Work"
+
             }
         },
         "classLevelPermissions": {

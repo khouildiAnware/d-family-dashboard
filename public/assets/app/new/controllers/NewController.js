@@ -3,7 +3,7 @@ angular.module('karizma.new')
         function ($scope, $http,ValidationService, News, Language, pictureSizeFilter) {
             $scope.filters = {
                 page: 1,
-                pageSize: 100,
+                pageSize: 12,
             };
 
             $scope.imagesQueue = [];
@@ -67,6 +67,9 @@ angular.module('karizma.new')
 
             $scope.fileUploaded = function (fileInfo, object) {
                 $scope.selectedItem.thumbnail=fileInfo.url;
+            };
+             $scope.fileRemoved = function (fileInfo, index) {
+                $scope.selectedItem.thumbnail = null;
             };
 
             

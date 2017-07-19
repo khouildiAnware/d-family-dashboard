@@ -32,9 +32,7 @@ angular.module('karizma.shared')
                                     confirmButtonText: "أغلق"
                                 });
 
-                                Parse.Cloud.run('DecrementPlaceCount', {
-                                    categoryId: scope.object.id
-                                });
+                               
 
                             }, function (res) {
                                 swal({
