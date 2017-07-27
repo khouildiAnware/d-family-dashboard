@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <h4 class="caption-subject bold font-red-flamingo">المشاركات </h4>
+                </div>
+
+            </div>
+            <div class="portlet-body" block-ui="ui">
+                <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}" />
+                <hr/>
+                <div class="row">
+
+
+                    <div class="col-md-4 col-xs-6" ng-repeat="item in participations" id="item-{{item.id}}">
+                        <div class="category-widget" style="min-height:470px">
+                            <div class="category-widget-head">
+                                <section class="video">
+                                    <video poster="{{item.thumbnail}}" controls>
+                                        <source src='{{item.video}}' type="video/mp4">
+                                    </video>
+
+                                </section>
+                            </div>
+                            <div class="category-widget-body">
+                                <div style="min-height: 130px;">
+                                    <h4 class="event-title" style="white-space: normal;"> {{item.title}} </h4>
+                                    <br>
+                                    <div> نشرت من قبل : {{item.user.fullName}}</div>
+
+                                    <br>
+                                    <div class="event-date">
+                                        <i class="fa fa-calendar font-green"></i> <span>{{item.createdAt | moment:'format':'dddd D MMMM YYYY'}}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="event-buttons">
+
+                                    </div>
+                                    <div class="category-title ">
+
+                                        <button type="button" class="btn red btn-sm" style="width:100px" container-id="#item-{{item.id}}" delete-btn="item"><i class="fa fa-times"></i> حذف</button>
+                                        <button type="button" class="btn btn-primary" style="width:100px" conf-btn="item" container-id="#item-{{item.id}}"> <i class="fa fa-plus"></i> إضافة </button>
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

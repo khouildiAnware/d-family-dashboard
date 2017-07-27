@@ -16,6 +16,8 @@ const appId = 'F54949DC-1EF8-4453-A71A-8A481SLKJ5LD';
 const masterKey = '5022C83B-4F72-46A0-AE7E-ABGH4HSVXN56';
 const parseUrl = 'https://dfamily.parse-server.karizma1.com/parse';
 
+
+
 Parse.initialize(appId, '', masterKey);
 Parse.serverURL = parseUrl;
 Parse.Cloud.useMasterKey();
@@ -120,12 +122,19 @@ app.use(expressValidator({
 //     }
 // });
 
+
+
+
+
 var account = require('./routes/account');
+var translate = require('./routes/translate');
 var upload = require('./routes/upload');
 var index = require('./routes/index');
 var templates = require('./routes/template');
 
 app.use('/account', account);
+app.use('/translate', translate);
+
 app.use('/upload', upload);
 app.use('/template/*', templates);
 var routes = require('./config/routes');

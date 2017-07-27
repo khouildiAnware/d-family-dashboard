@@ -23,7 +23,7 @@ angular.module('karizma.shared')
                             }).then(function (res) {
                                 var container = attr.containerId || element.parent();
                                 $(container).remove();
-                                
+
                                 swal({
                                     title: "تم الحذف!",
                                     text: "تم حذف البيانات نهائيا",
@@ -32,7 +32,7 @@ angular.module('karizma.shared')
                                     confirmButtonText: "أغلق"
                                 });
 
-                               
+
 
                             }, function (res) {
                                 swal({

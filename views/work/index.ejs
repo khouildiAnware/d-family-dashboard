@@ -10,8 +10,7 @@
                 </div>
             </div>
             <div class="portlet-body" block-ui="ui">
-                <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}"
-                />
+                <input type="text" class="form-control search-box" placeholder="ابحث..." ng-model="filters.search" ng-model-options="{debounce:800}" />
                 <hr/>
                 <div class="row">
                     <div class="col-md-4 col-xs-6" ng-repeat="item in works">
@@ -46,7 +45,7 @@
                                             <i class="fa fa-heart text-danger" aria-hidden="true">{{item.likes ? item.likes.length:0}}</i>&nbsp;&nbsp;
                                         </div>
                                         <div class="col-xs-2">
-                                            <a data-toggle="modal" data-target="#comment-modal" ng-click="selectItem(item,true)"><i class="fa fa-commenting  " aria-hidden="true">{{item.nbrComments || 0}}</i></a>                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a data-toggle="modal" data-target="#comment-modal" ng-click="selectItem(item,true)"><i class="fa fa-commenting  " aria-hidden="true">{{item.nbrComments || 0}}</i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </div>
                                         <div class="col-xs-4" style="padding-left: 0px;">
                                             <button type="button" data-toggle="modal" data-target="#work-modal" ng-click="selectItem(item)" class="btn btn-circle btn-default btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -86,21 +85,18 @@
                                     <label class="control-label translateable">العنوان</label>
                                     <bhg-input model="selectedItem.title" selected-language="selectedLanguage"></bhg-input>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label">الصورة</label>
-                                    <kr-file-upload name="imageUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline" field-name="full"
-                                        file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)"
-                                        fail="uploadFail()"></kr-file-upload>
+                                    <kr-file-upload name="imageUploader" queue="imagesQueue" allowed-extensions="jpg,jpeg,png,gif" display="inline" field-name="full" file-uploaded="fileUploaded(fileInfo, object)" file-removed="fileRemoved(fileInfo, index)" fail="uploadFail()"></kr-file-upload>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">الفيديو</label>
-                                     <kr-file-upload name="videoUploader" queue="videoQueue" allowed-extensions="mp4" display="inline" type="video" file-uploaded="videoUploaded(fileInfo, object)"
-                                    file-removed="videoRemoved(fileInfo, index)" fail="uploadFail()"></kr-file-upload>
+                                    <kr-file-upload name="videoUploader" queue="videoQueue" allowed-extensions="mp4" display="inline" type="video" file-uploaded="videoUploaded(fileInfo, object)" file-removed="videoRemoved(fileInfo, index)" fail="uploadFail()"></kr-file-upload>
                                 </div>
 
                             </div>
                             <div class="col-sm-6">
-                               
+
                             </div>
                         </div>
                     </form>

@@ -1,4 +1,4 @@
-angular.module('karizma.user')
+ angular.module('karizma.user')
     .controller('UserController', ['$scope', '$http', 'User',
         function ($scope, $http, User) {
             $scope.filters = {

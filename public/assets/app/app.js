@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var PARSE_SERVER_URL = 'https://dfamily.parse-server.karizma1.com/parse';
     var PARSE_APP_ID = 'F54949DC-1EF8-4453-A71A-8A481SLKJ5LD';
     var PARSE_MASTER_KEY = '5022C83B-4F72-46A0-AE7E-ABGH4HSVXN56';
@@ -14,7 +14,7 @@
         $('body').removeClass('login');
     }
 
-    angular.module('karizma', ['ngResource', 'ngRoute', 'ui.sortable', 'summernote', 'karizma.account', 'karizma.shared', 'karizma.home', 'karizma.album', 'karizma.user', 'karizma.new', 'karizma.work'])
+    angular.module('karizma', ['ngResource', 'ngRoute', 'ui.sortable', 'summernote', 'karizma.account', 'karizma.shared', 'karizma.home', 'karizma.album', 'karizma.user', 'karizma.new', 'karizma.work','karizma.participation'])
         .config(['$locationProvider', '$routeProvider', '$httpProvider',
             function ($locationProvider, $routeProvider, $httpProvider) {
                 $routeProvider

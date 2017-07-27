@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 
     var schema = [
         {
@@ -255,7 +255,7 @@
             "delete": {},
             "addField": {}
         }
-    }, {
+    }, { 
         "className": "Language",
         "fields": {
             "objectId": {
@@ -374,6 +374,52 @@
              "work": {
                 "type": "Pointer",
                 "targetClass": "Work"
+
+            }
+        },
+        "classLevelPermissions": {
+            "find": {
+                "*": true
+            },
+            "get": {
+                "*": true
+            },
+            "create": {},
+            "update": {},
+            "delete": {},
+            "addField": {
+                "*": true
+            }
+        }
+    }, {
+        "className": "Participation",
+        "fields": {
+            "objectId": {
+                "type": "String"
+            },
+            "createdAt": {
+                "type": "Date"
+            },
+            "updatedAt": {
+                "type": "Date"
+            },
+            "ACL": {
+                "type": "ACL"
+            },
+            "video": {
+                "type": "String"
+            },
+            "thumbnail": {
+                "type": "String"
+                },
+            "user": {
+                "type": "Pointer",
+                "targetClass": "_User"
+
+            },
+             "title": {
+                "type": "String"
+                
 
             }
         },
