@@ -1,6 +1,6 @@
 angular.module('karizma.album')
-    .controller('PhotoController', ['$scope', '$http', '$route','$timeout', 'ValidationService', 'AlbumPhoto', 'Language', 'pictureSizeFilter',
-        function ($scope, $http,$route,$timeout, ValidationService, AlbumPhoto, Language, pictureSizeFilter) {
+    .controller('PhotoController', ['$scope', '$http', '$route', '$timeout', 'ValidationService', 'AlbumPhoto', 'Language', 'pictureSizeFilter',
+        function ($scope, $http, $route, $timeout, ValidationService, AlbumPhoto, Language, pictureSizeFilter) {
             $scope.album = $route.current.locals.album;
             $scope.filters = {
                 page: 1,
@@ -9,6 +9,8 @@ angular.module('karizma.album')
 
             $scope.imagesQueue = [];
             $scope.widgets = [];
+            var pic = $scope.album;
+            //  console.log(pic);
 
             var validationRules = {
                 'name': {
@@ -29,7 +31,7 @@ angular.module('karizma.album')
                 $scope.ui && $scope.ui.block();
                 query.paged($scope.filters.page, $scope.filters.pageSize)
                     .include('name,album')
-                    .equalTo('album',$scope.album)
+                    .equalTo('album', $scope.album)
                     .ascending('sortOrder')
                     .find()
                     .then(function (albumPhotos) {
@@ -42,16 +44,17 @@ angular.module('karizma.album')
                 if (!item) {
                     item = new AlbumPhoto();
                     item.name = new Language();
-                    item.album=$scope.album;
+                    //  console.log($scope.album);
+                    item.album = $scope.album;
                 }
 
                 $scope.imagesQueue.length = 0;
 
-               if (item.thumbnail) {
+                if (item.thumbnail) {
                     $scope.imagesQueue = [{
-                            name: 'bg-',
-                            url: item.thumbnail,
-                            state: 'uploaded'
+                        name: 'bg-',
+                        url: item.thumbnail,
+                        state: 'uploaded'
                         }];
                     $scope.backgroundUploader.refreshQueue($scope.imagesQueue);
                 }
@@ -95,6 +98,10 @@ angular.module('karizma.album')
                         refresh();
                     });
                 });
+
+                pic.increment("nbPictures");
+                console.log(pic.nbPictures);
+                $scope.album.save();
             };
 
             $scope.sortableOptions = {
@@ -102,52 +109,54 @@ angular.module('karizma.album')
                 'ui-floating': true
             };
 
-             $scope.delete = function (item) {
-               
-                swal({
-                            title: "هل أنت متأكد؟",
-                            text: "لا يمكن استرجاع البيانات بعد الحذف",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonClass: "red",
-                            confirmButtonText: "نعم، احذف",
-                            cancelButtonText: "إلغاء",
-                            closeOnConfirm: false
-                        },
-                        function () {
-                            item.destroy({
-                                useMasterKey: true
-                            }).then(function (res) {
-                                
+            $scope.delete = function (item) {
 
-                                 $timeout(function () {
+                swal({
+                        title: "هل أنت متأكد؟",
+                        text: "لا يمكن استرجاع البيانات بعد الحذف",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "red",
+                        confirmButtonText: "نعم، احذف",
+                        cancelButtonText: "إلغاء",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        item.destroy({
+                            useMasterKey: true
+                        }).then(function (res) {
+
+
+                            $timeout(function () {
 
                                 $scope.albumPhotos = _.filter($scope.albumPhotos, function (o) {
                                     return o.id != item.id;
                                 });
-                               
+
                             });
-                                
-                                swal({
-                                    title: "تم الحذف!",
-                                    text: "تم حذف البيانات نهائيا",
-                                    type: "success",
-                                    confirmButtonClass: "btn-primary",
-                                    confirmButtonText: "أغلق"
-                                });
+                            
+                            
 
-                               
+                            swal({
+                                title: "تم الحذف!",
+                                text: "تم حذف البيانات نهائيا",
+                                type: "success",
+                                confirmButtonClass: "btn-primary",
+                                confirmButtonText: "أغلق"
+                            });
 
-                            }, function (res) {
-                                swal({
-                                    title: "حدث خطأ!",
-                                    text: "حدث خطأ أثناء حذف البيانات",
-                                    type: "error",
-                                    confirmButtonClass: "red",
-                                    confirmButtonText: "أغلق"
-                                });
+
+
+                        }, function (res) {
+                            swal({
+                                title: "حدث خطأ!",
+                                text: "حدث خطأ أثناء حذف البيانات",
+                                type: "error",
+                                confirmButtonClass: "red",
+                                confirmButtonText: "أغلق"
                             });
                         });
+                    });
             };
 
             $scope.$watch('filters', refresh, true);

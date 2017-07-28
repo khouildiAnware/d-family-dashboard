@@ -1,6 +1,6 @@
 angular.module('karizma.album')
-    .controller('AlbumController', ['$scope', '$http','$timeout', 'ValidationService', 'Album', 'Language', 'pictureSizeFilter',
-        function ($scope, $http,$timeout, ValidationService, Album, Language, pictureSizeFilter) {
+    .controller('AlbumController', ['$scope', '$http', '$timeout', 'ValidationService', 'Album', 'Language', 'pictureSizeFilter', 'AlbumPhoto',
+        function ($scope, $http, $timeout, ValidationService, Album, Language, pictureSizeFilter, AlbumPhoto) {
             $scope.filters = {
                 page: 1,
                 pageSize: 12,
@@ -44,15 +44,15 @@ angular.module('karizma.album')
 
                 $scope.imagesQueue.length = 0;
 
-               if (item.thumbnail) {
+                if (item.thumbnail) {
                     $scope.imagesQueue = [{
-                            name: 'bg-',
-                            url: item.thumbnail,
-                            state: 'uploaded'
+                        name: 'bg-',
+                        url: item.thumbnail,
+                        state: 'uploaded'
                         }];
                     $scope.backgroundUploader.refreshQueue($scope.imagesQueue);
                 }
-                
+
                 $scope.selectedItem = item;
             };
 
@@ -101,53 +101,57 @@ angular.module('karizma.album')
             };
 
             $scope.delete = function (item) {
-               
-                swal({
-                            title: "هل أنت متأكد؟",
-                            text: "لا يمكن استرجاع البيانات بعد الحذف",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonClass: "red",
-                            confirmButtonText: "نعم، احذف",
-                            cancelButtonText: "إلغاء",
-                            closeOnConfirm: false
-                        },
-                        function () {
-                            item.destroy({
-                                useMasterKey: true
-                            }).then(function (res) {
-                                
 
-                                 $timeout(function () {
+                swal({
+                        title: "هل أنت متأكد؟",
+                        text: "لا يمكن استرجاع البيانات بعد الحذف",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "red",
+                        confirmButtonText: "نعم، احذف",
+                        cancelButtonText: "إلغاء",
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        item.destroy({
+                            useMasterKey: true
+                        }).then(function (res) {
+
+
+
+
+
+
+                            $timeout(function () {
 
                                 $scope.albums = _.filter($scope.albums, function (o) {
                                     return o.id != item.id;
                                 });
-                               
+
                             });
-                                
-                                swal({
-                                    title: "تم الحذف!",
-                                    text: "تم حذف البيانات نهائيا",
-                                    type: "success",
-                                    confirmButtonClass: "btn-primary",
-                                    confirmButtonText: "أغلق"
-                                });
 
-                               
+                            swal({
+                                title: "تم الحذف!",
+                                text: "تم حذف البيانات نهائيا",
+                                type: "success",
+                                confirmButtonClass: "btn-primary",
+                                confirmButtonText: "أغلق"
+                            });
 
-                            }, function (res) {
-                                swal({
-                                    title: "حدث خطأ!",
-                                    text: "حدث خطأ أثناء حذف البيانات",
-                                    type: "error",
-                                    confirmButtonClass: "red",
-                                    confirmButtonText: "أغلق"
-                                });
+
+
+                        }, function (res) {
+                            swal({
+                                title: "حدث خطأ!",
+                                text: "حدث خطأ أثناء حذف البيانات",
+                                type: "error",
+                                confirmButtonClass: "red",
+                                confirmButtonText: "أغلق"
                             });
                         });
+                    });
             };
 
             $scope.$watch('filters', refresh, true);
-        }
-    ]);
+                    }
+                    ]);
